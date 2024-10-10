@@ -16,6 +16,9 @@ add_action(
 add_action(	'woocommerce_init', 'my_fv_fields');
 
 function my_fv_fields() {
+
+  
+
     woocommerce_register_additional_checkout_field(
         array(
             'id'       => 'invoke/fv',
@@ -256,11 +259,12 @@ add_action(
                         10,
                         3
                     );
-        
+}
 
-
-
-        ?>
+function css_add_2()
+{
+    
+    ?>
  
     <style>
     #contact-invoke-name,#contact-invoke-nip,#contact-invoke-email, #contact-invoke-street,#contact-invoke-city,#contact-invoke-zip_code, #contact-invoke-name~label,#contact-invoke-nip~label,#contact-invoke-email~label, #contact-invoke-street~label,#contact-invoke-city~label,#contact-invoke-zip_code~label  { display:none; }
@@ -268,8 +272,15 @@ add_action(
     .off, .off~label{display: none !important;}
 
     </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+
+<?php
+}
+
+function add_js_2()
+{
+    
+    ?>
     <script type="text/javascript">
       
         window.onload=function(){
@@ -298,5 +309,9 @@ add_action(
    
 }
     </script>
+    
         <?php
 }
+
+add_action( 'wp_enqueue_scripts', 'css_add_2', 10 );
+add_action('wp_enqueue_scripts', 'add_js_2', 25);
