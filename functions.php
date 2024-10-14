@@ -1,9 +1,11 @@
+<?php
+
 add_action(
     'woocommerce_blocks_validate_location_contact_fields',
     function ( WP_Error $errors, $fields, $group ) {
         
-        if ( $fields['invoke/fv'] === true ) {
-            if(empty($fields['invoke/name']) || empty($fields['invoke/email']) || empty($fields['invoke/street']) || empty($fields['invoke/city']) || empty($fields['invoke/zip_code']) || empty($fields['invoke/nip']))
+        if ( $fields['invoice/fv'] === true ) {
+            if(empty($fields['invoice/name'])  || empty($fields['invoice/street']) || empty($fields['invoice/city']) || empty($fields['invoice/zip_code']) || empty($fields['invoice/nip']))
             {
                 $errors->add( 'error', 'Do faktury potrzebne są wszystkie pola' );
             }
@@ -21,7 +23,7 @@ function my_fv_fields() {
 
     woocommerce_register_additional_checkout_field(
         array(
-            'id'       => 'invoke/fv',
+            'id'       => 'invoice/fv',
             'label'    => 'Czy chcesz otrzymać fakturę',
             'location' => 'contact',
             'type'     => 'checkbox',
@@ -36,7 +38,7 @@ function my_fv_fields() {
     );
 		woocommerce_register_additional_checkout_field(
 			array(
-				'id'            => 'invoke/name',
+				'id'            => 'invoice/name',
 				'label'         => 'Nazwa firmy',
 				'location'      => 'contact',
 				'required'      => false,
@@ -46,36 +48,11 @@ function my_fv_fields() {
            
 			),
         );
-        woocommerce_register_additional_checkout_field(
-            array(
-                'id'            => 'invoke/email',
-                'label'         => 'Email',
-                'location'      => 'contact',
-                'required'      => false,
-               
-            )
-    );
-    add_action(
-        'woocommerce_set_additional_field_value',
-        function ( $key, $value, $group, $wc_object ) {
-            if ( 'invoke/email' !== $key ) {
-                return;
-            }
-    
-            if ( 'billing' === $group ) {
-                $my_plugin_address_key = '_invoke_email';
-            } else {
-                $my_plugin_address_key = '_invoke_email';
-            }
-    
-            $wc_object->update_meta_data( $my_plugin_address_key, $value, true );
-        },
-        10,
-        4
-    );
+       
+
     woocommerce_register_additional_checkout_field(
         array(
-            'id'            => 'invoke/street',
+            'id'            => 'invoice/street',
             'label'         => 'Ulica',
             'location'      => 'contact',
             'required'      => false,
@@ -85,14 +62,14 @@ function my_fv_fields() {
 add_action(
     'woocommerce_set_additional_field_value',
     function ( $key, $value, $group, $wc_object ) {
-        if ( 'invoke/street' !== $key ) {
+        if ( 'invoice/street' !== $key ) {
             return;
         }
 
         if ( 'billing' === $group ) {
-            $my_plugin_address_key = '_invoke_street';
+            $my_plugin_address_key = '_invoice_street';
         } else {
-            $my_plugin_address_key = '_invoke_street';
+            $my_plugin_address_key = '_invoice_street';
         }
 
         $wc_object->update_meta_data( $my_plugin_address_key, $value, true );
@@ -102,7 +79,7 @@ add_action(
 );
 woocommerce_register_additional_checkout_field(
     array(
-        'id'            => 'invoke/city',
+        'id'            => 'invoice/city',
         'label'         => 'Miasto',
         'location'      => 'contact',
         'required'      => false,
@@ -112,14 +89,14 @@ woocommerce_register_additional_checkout_field(
 add_action(
     'woocommerce_set_additional_field_value',
     function ( $key, $value, $group, $wc_object ) {
-        if ( 'invoke/city' !== $key ) {
+        if ( 'invoice/city' !== $key ) {
             return;
         }
 
         if ( 'billing' === $group ) {
-            $my_plugin_address_key = '_invoke_city';
+            $my_plugin_address_key = '_invoice_city';
         } else {
-            $my_plugin_address_key = '_invoke_city';
+            $my_plugin_address_key = '_invoice_city';
         }
 
         $wc_object->update_meta_data( $my_plugin_address_key, $value, true );
@@ -129,7 +106,7 @@ add_action(
 );
 woocommerce_register_additional_checkout_field(
     array(
-        'id'            => 'invoke/zip_code',
+        'id'            => 'invoice/zip_code',
         'label'         => 'Kod pocztowy',
         'location'      => 'contact',
         'required'      => false,
@@ -139,14 +116,14 @@ woocommerce_register_additional_checkout_field(
 add_action(
     'woocommerce_set_additional_field_value',
     function ( $key, $value, $group, $wc_object ) {
-        if ( 'invoke/zip_code' !== $key ) {
+        if ( 'invoice/zip_code' !== $key ) {
             return;
         }
 
         if ( 'billing' === $group ) {
-            $my_plugin_address_key = '_invoke_zip_code';
+            $my_plugin_address_key = '_invoice_zip_code';
         } else {
-            $my_plugin_address_key = '_invoke_zip_code';
+            $my_plugin_address_key = '_invoice_zip_code';
         }
 
         $wc_object->update_meta_data( $my_plugin_address_key, $value, true );
@@ -156,7 +133,7 @@ add_action(
 );
 woocommerce_register_additional_checkout_field(
     array(
-        'id'            => 'invoke/nip',
+        'id'            => 'invoice/nip',
         'label'         => 'Nip',
         'location'      => 'contact',
         'required'      => false,
@@ -166,14 +143,14 @@ woocommerce_register_additional_checkout_field(
 add_action(
     'woocommerce_set_additional_field_value',
     function ( $key, $value, $group, $wc_object ) {
-        if ( 'invoke/nip' !== $key ) {
+        if ( 'invoice/nip' !== $key ) {
             return;
         }
 
         if ( 'billing' === $group ) {
-            $my_plugin_address_key = '_invoke_nip';
+            $my_plugin_address_key = '_invoice_nip';
         } else {
-            $my_plugin_address_key = '_invoke_nip';
+            $my_plugin_address_key = '_invoice_nip';
         }
 
         $wc_object->update_meta_data( $my_plugin_address_key, $value, true );
@@ -184,14 +161,14 @@ add_action(
 add_action(
 	'woocommerce_set_additional_field_value',
 	function ( $key, $value, $group, $wc_object ) {
-		if ( 'invoke/name' !== $key ) {
+		if ( 'invoice/name' !== $key ) {
 			return;
 		}
 
 		if ( 'billing' === $group ) {
-			$my_plugin_address_key = '_invoke_name';
+			$my_plugin_address_key = '_invoice_name';
 		} else {
-			$my_plugin_address_key = '_invoke_name';
+			$my_plugin_address_key = '_invoice_name';
 		}
 
 		$wc_object->update_meta_data( $my_plugin_address_key, $value, true );
@@ -202,7 +179,7 @@ add_action(
 		add_action(
 			'woocommerce_sanitize_additional_field',
 			function ( $field_value, $field_key ) {
-                if( 'invoke/fv' === $field_key ) {
+                if( 'invoice/fv' === $field_key ) {
 
                 }
 				return $field_value;
@@ -211,25 +188,12 @@ add_action(
 			2
 		);
         //validacja
-        add_action(
-            'woocommerce_validate_additional_field',
-                function ( WP_Error $errors, $field_key, $field_value ) {
-                    if ( 'invoke/email' === $field_key ) {
-                        if(!filter_var($field_value, FILTER_VALIDATE_EMAIL))
-                        {
-                            $errors->add( 'invalid_mail', 'Proszę podać poprawny adres mail.' );
-                        }
-                    }
-                    return $errors;
-                },
-                10,
-                3
-            );
+       
 
             add_action(
                 'woocommerce_validate_additional_field',
                     function ( WP_Error $errors, $field_key, $field_value ) {
-                        if ( 'invoke/zip_code' === $field_key ) {
+                        if ( 'invoice/zip_code' === $field_key ) {
                             $pattern = array('/^\d{2}-\d{3}$/');
 
                             if(!preg_match($pattern[0], $field_value))
@@ -246,7 +210,7 @@ add_action(
                 add_action(
                     'woocommerce_validate_additional_field',
                         function ( WP_Error $errors, $field_key, $field_value ) {
-                            if ( 'invoke/nip' === $field_key ) {
+                            if ( 'invoice/nip' === $field_key ) {
                                 
     
                                 if(!is_numeric($field_value) || $field_value < 1000000000)
@@ -267,7 +231,7 @@ function css_add_2()
     ?>
  
     <style>
-    #contact-invoke-name,#contact-invoke-nip,#contact-invoke-email, #contact-invoke-street,#contact-invoke-city,#contact-invoke-zip_code, #contact-invoke-name~label,#contact-invoke-nip~label,#contact-invoke-email~label, #contact-invoke-street~label,#contact-invoke-city~label,#contact-invoke-zip_code~label  { display:none; }
+    #contact-invoice-name,#contact-invoice-nip, #contact-invoice-street,#contact-invoice-city,#contact-invoice-zip_code, #contact-invoice-name~label,#contact-invoice-nip~label, #contact-invoice-street~label,#contact-invoice-city~label,#contact-invoice-zip_code~label  { display:none; }
     .on, .on~label{display: block !important;}
     .off, .off~label{display: none !important;}
 
@@ -285,8 +249,8 @@ function add_js_2()
       
         window.onload=function(){
             jQuery(function($){
-        var a = '#contact-invoke-fv';
-        var b = '#contact-invoke-name,#contact-invoke-nip,#contact-invoke-email, #contact-invoke-street,#contact-invoke-city,#contact-invoke-zip_code';
+        var a = '#contact-invoice-fv';
+        var b = '#contact-invoice-name,#contact-invoice-nip,#contact-invoice-street,#contact-invoice-city,#contact-invoice-zip_code';
 
         $(a).change(function() {
             if ( $(this).prop('checked') === true ) {
