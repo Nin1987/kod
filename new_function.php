@@ -190,29 +190,26 @@ function menu_styles()
 {
     ?>
     <style>
-    .dropdown-menu
+  
+    .dropdown-menu1>ul
     {
-        width:100%!important;
-    }
-    .dropdown-menu
-    {
-        width:500%!important;
+        width:600%!important;
         display: flex!important;
         flex-wrap: wrap!important;
     }
-    .dropdown-menu>li
+    .dropdown-menu1>ul>li
     {
         flex: 0 0 auto!important;
         width: 25%!important;
     }
-    .dropdown-menu>li>a
+    .dropdown-menu1>ul>li>a
     {
         white-space: wrap;
     }
 
     @media(max-width:750px)
     {
-        .dropdown-menu
+        .dropdown-menu1>ul
         {
             width:100%!important; 
         }
