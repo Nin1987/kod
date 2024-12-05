@@ -213,6 +213,11 @@ function menu_styles()
         {
             width:100%!important; 
         }
+    .dropdown-menu1>ul>li
+    {
+        flex: 0 0 auto!important;
+        width: 50%!important;
+    }
     }
         </style>
     <?php
